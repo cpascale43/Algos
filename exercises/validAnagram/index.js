@@ -8,28 +8,24 @@
 // 'aaz', 'zza' => false
 
 function validAnagram(str1, str2) {
-  const frequencyCounterOne = {};
-  const frequencyCounterTwo = {};
+  if (str1.length !== str2.length) {
+    return false;
+  }
+
+  const lookup = {};
 
   for (let char of str1) {
-    frequencyCounterOne[char]
-      ? frequencyCounterOne[char]++
-      : (frequencyCounterOne[char] = 1);
+    lookup[char]
+      ? lookup[char]++
+      : (lookup[char] = 1);
   }
 
-  for (let char of str2) {
-    frequencyCounterTwo[char]
-      ? frequencyCounterTwo[char]++
-      : (frequencyCounterTwo[char] = 1);
-  }
-
-  for (let key in frequencyCounterOne) {
-    if (key in frequencyCounterTwo) {
-      if (frequencyCounterOne[key] !== frequencyCounterTwo[key]) {
-        return false;
-      }
-    } else {
+  for (let i = 0; i < str2.length; i++) {
+    let letter = str2[i];
+    if (!lookup[letter]) {
       return false;
+    } else {
+      lookup[letter] -= 1;
     }
   }
 
