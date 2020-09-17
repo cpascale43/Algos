@@ -18,8 +18,39 @@
 // You’re going to write the validation function. The function will take in a string for the stale file contents,
 // a string containing the latest file contents, and a JSON string containing the operations. You may use any language! Here are some examples in JavaScript:
 
-function isValid(stale, latest, otjson) {
-  // this is the part you will write!
+// deletes characters from a given index 
+function deleteChars(str, currIdx, count) {
+  let deleted = str.slice(currIdx, currIdx + count);
+  return str.replace(deleted, "");
 }
 
-module.exports = isValid
+// inserts characters at a given index
+function insert(str, currIdx, chars) {
+  let charsArr = str.split("");
+  charsArr.splice(currIdx, 0, chars);
+  return charsArr.join("");
+}
+
+function isValid(stale, latest, otjson) {
+  // this is the part you will write!
+  var operations = JSON.parse(otjson);
+  var currIdx = 0;
+
+  for (let operation of operations) {
+    if (operation.op === "skip") {
+      if (currIdx + operation.count > stale.length) {
+        return false;
+      }
+      currIdx += operation.count;
+    } else if (operation.op === "delete") {
+      stale = deleteChars(stale, currIdx, operation.count);
+    } else if (operation.op === "insert") {
+      stale = insert(stale, currIdx, operation.chars);
+      console.log(stale.slice(currIdx));
+    }
+  }
+
+  return stale.length === latest.length;
+}
+
+module.exports = isValid;
