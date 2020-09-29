@@ -12,6 +12,36 @@
 // [4,3,3,8,1,2,3], 11 => 2
 // [1,4,16,22,5,7,8,9,10], 95 => 0
 
-function minSubLen(array, num) {}
+function minSubLen(array, sum) {
+  let total = 0;
+  let start = 0;
+  let end = 0;
+  let minLen = Infinity;
+
+  while (start < array.length) {
+    // if current window doesn't add up to the given sum
+    // move the window to the right
+    if (total < sum && end < array.length) {
+      total += array[end];
+      end++;
+    }
+
+    // if current window adds up to at least the sum given
+    // shrink the window
+    else if (total >= sum) {
+      minLen = Math.min(minLen, end - start);
+      total -= array[start];
+      start++;
+    }
+
+    // if current total is less than the given sum but we reach the end,
+    // return
+    else {
+      break;
+    }
+  }
+
+  return minLen === Infinity ? 0 : minLen;
+}
 
 module.exports = minSubLen;

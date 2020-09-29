@@ -16,11 +16,7 @@ test("minSubLen works on the same array of numbers with different n", () => {
   expect(minSubLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 39)).toEqual(3);
 });
 
-test("minSubLen works when n is small", () => {
-  expect(minSubLen([4, 2, 1, 6], 1)).toEqual(6);
-});
-
-test("minSubLen works when n is larger", () => {
+test("minSubLen works when n is larger than the sum of all numbers in the array", () => {
   expect(minSubLen([1, 4, 16, 22, 5, 7, 8, 9, 10], 95)).toEqual(0);
 });
 
@@ -34,4 +30,8 @@ test("minSubLen works when the returned array should be of length 2", () => {
 
 test("minSubLen works when the returned array should be of length 2", () => {
   expect(minSubLen([2, 1, 6, 5, 4], 9)).toEqual(2);
+});
+
+test("minSubLen works when the returned array should be of length 2", () => {
+  expect(minSubLen([4, 3, 3, 8, 1, 2, 3], 11)).toEqual(2);
 });
