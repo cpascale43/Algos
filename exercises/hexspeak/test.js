@@ -11,3 +11,7 @@ test("hexspeak works on the number 257", () => {
 test("hexspeak works on the number 3", () => {
   expect(hexspeak(3)).toEqual("ERROR");
 });
+
+test("hexspeak works on the number 659724", () => {
+  expect(hexspeak(659724)).toEqual("AIIOC");
+});
