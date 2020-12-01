@@ -23,8 +23,39 @@
 // k = 2
 // Output: [0,2]
 
-function kWeakestRows(mat, k) {
+// binary search to counts 1s in each row
+// sort in ascending order OR i < j
+// save indexes to new result array of length k
 
+const searchForOnes = (arr, left, right) => {
+  if (left === right) return left;
+  const mid = Math.floor((left + right) / 2);
+  return arr[mid] === 0
+    ? searchForOnes(arr, left, mid)
+    : searchForOnes(arr, mid + 1, right);
+};
+
+function kWeakestRows(mat, k) {
+  const n = mat.length;
+  const m = mat[0].length;
+  const rows = [];
+  const res = new Array(k);
+
+  // extracts number of ones from each row and current row index
+  for (let i = 0; i < m; i++) {
+    rows.push([searchForOnes(mat[i], 0, n), i]);
+  }
+
+  // sorts rows by number of soldiers in ascending order
+  // or if i is less than j
+  rows.sort((a, b) => (a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]));
+
+  // extracts only k indexes from rows
+  for (let i = 0; i < k; i++) {
+    res[i] = rows[i][1];
+  }
+
+  return res;
 }
 
 module.exports = kWeakestRows;
