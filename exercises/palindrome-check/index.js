@@ -9,7 +9,7 @@
 // isPal('!? 100 ABCcba 001 ?!') => true
 
 function isPal(str) {
-
+  return str.toLowerCase().split("").reverse().join("") === str.toLowerCase();
 }
 
-module.exports = isPal
+module.exports = isPal;
